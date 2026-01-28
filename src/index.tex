@@ -12,342 +12,60 @@
 \large
 \begin{exer*}
 
-Let $a$ and $b$ be positive integers such that
-\[
-\frac{a^2 + b^2}{ab + 1} = k
-\]
-is an integer. Prove that $k$ must be a perfect square.
-\vspace{0.5cm}
+\noindent A rare species of honeybee builds hives made of hexagonal cells. A complete hive consists of \textbf{37 hexagonal cells} arranged in concentric rings:
 
-{\Large\textbf{Hints:}}
-\begin{itemize}
-    \item  First, rewrite the equation as a quadratic in $a$: 
-    \[ a^2 - kba + (b^2 - k) = 0 \]
-    \item If $a$ is a root, let $a'$ be the other root. Note that $a + a' = kb$ and $a \cdot a' = b^2 - k$.
-		\item If $a$ is one integer root of this quadratic, what can you say about the other root?
-		\item Try choosing a solution with the smallest possible $a + b$, and see what that forces.
-    % \item \textbf{Infinite Descent:} Assume $k$ is not a square. Choose the solution $(a, b)$ with the \textit{smallest sum} $a+b$. Show that the second root $a'$ creates a valid solution $(a', b)$ with an even smaller sum, leading to a contradiction.
-\end{itemize}
-
-\vspace{0.5cm}
-{\Large{\textbf{Examples:}}}
-\begin{itemize}
-    \item For $a=1, b=2$: $\frac{1^2+2^2}{1(2)+1} = \frac{5}{3} \notin \mathbb{Z}$.
-    \item For $a=2, b=2$: $\frac{2^2+2^2}{2(2)+1} = \frac{8}{5} \notin \mathbb{Z}$.
-\end{itemize}
-
-The problem is asking you to understand why, whenever it is an integer, the quotient is forced to be a square — no matter what $a$ and $b$ are.
-
-
-% Let $a$ and $b$ be positive integers such that:
-% \[
-% \frac{a^2 + b^2}{ab + 1}
-% \]
-% is an integer. Prove that this integer is always a perfect square.
-
-% \vspace{0.5cm}
-% \noindent \textit{(Equivalently: If $ab + 1$ divides $a^2 + b^2$, then $\frac{a^2 + b^2}{ab+1}$ must be the square of an integer.)}
-
-% \section*{Gentle Hints}
-% \textit{(Read one at a time)}
-
-% \begin{itemize}
-%     \item First, assume $a^2 + b^2 = k(ab + 1)$ for some integer $k$.
-%     \item Rearrange this equation and view it as a quadratic in $a$. (You'll get something like: $a^2 - kba + (b^2 - k) = 0$.)
-%     \item If $a$ is one integer root of this quadratic, what can you say about the other root?
-%     \item Try choosing a solution with the \textbf{smallest possible sum} $a + b$, and see what that forces.
-% \end{itemize}
-
-% \section*{Small Example (to build intuition)}
-
-% Take $a = 1, b = 2$, then:
-% \begin{align*}
-% a^2 + b^2 &= 1 + 4 = 5 \\
-% ab + 1 &= 2 + 1 = 3
-% \end{align*}
-% Here $3$ does not divide $5$, so this pair doesn't work.
-
-% \vspace{0.3cm}
-% \noindent Now try $a = 2, b = 2$:
-% \begin{align*}
-% a^2 + b^2 &= 4 + 4 = 8 \\
-% ab + 1 &= 4 + 1 = 5
-% \end{align*}
-% Again, not divisible.
-
-% \vspace{0.3cm}
-% \noindent The problem is asking you to understand why, whenever divisibility \textit{does} happen, the quotient is forced to be a square — no matter what $a$ and $b$ are.
-
-
-
-
-
-% Let $f : [0, 2] \to \mathbb{R}$ be a continuous function satisfying the following conditions:
-% \begin{align*}
-%     f(0) &= 0\\
-%     f(1) &= 1\\
-%     f(2) &= 0\\
-% 		f(x) &\geq 0 \quad \text{for all } x \in [0, 2]
-% \end{align*}
-
-% Assume that the derivative $f'(x)$ exists except at finitely many points. Let the function $I(f)$ be defined as:
-% \[
-% I(f) = \int_{0}^{2} \sqrt{1 + \left(f'(x)\right)^2} \, dx
-% \]
-
-% \begin{enumerate}
-%     \item[\textbf{(A)}] Find the minimum possible value of $I(f)$ over all such functions $f$.
-%     \item[\textbf{(B)}] Determine all functions $f$ for which this minimum is achieved.
-%     \item[\textbf{(C)}] Give a geometric explanation for why your answer is the minimum.
-% \end{enumerate}
-
-
-% $f : [0,2] → R$ be a continuous function satisfying:\\
-% % \[
-% \begin{align*}
-% 	f(0)&=0\\
-% 	f(1)&=1\\
-% 	f(2)&=0\\
-% 	f(x)&=0 \hspace\forall\hspace x in [0,2]\\
-% \end{align*}
-% % \]
-% $f'(x)$ exists except at finitely many points\\
-
-% Define
-% $I(f) = \int _0^2 \sqrt(1 + (f'(x))^2) dx$
-
-% \begin{enumerate}
-% \item[(a)] Find the minimum possible value of $I(f)$ over all such functions $f$.
-
-% \item[(b)] Determine all functions $f$ for which this minimum is achieved.
-
-% \item[(c)] Give a geometric explanation for why your answer is the minimum.
-
-	
-% \end{enumerate}
-
-% Let $k$ be a positive integer.
-
-% \section*{Part (A) — Key counting lemma}
-
-% Consider sequences of length $2k+1$ made up of $k+1$ symbols `+1' and $k$ symbols `-1'. 
-% A sequence is called \textbf{positive-prefix} if every nonempty prefix has a strictly positive sum (in the usual integer sense).
-
-% Prove that the number of positive-prefix sequences equals
-% \[ \frac{1}{2k+1} \binom{2k+1}{k} \]
-% (where $\binom{n}{k}$ is the binomial coefficient).
-
-% \paragraph{Hint:} You may use the ballot theorem or the cycle lemma; a bijective or cyclic-rotation argument also works.
-
-% \subsection*{A concrete example:}
-% For $k = 3$, the length of the sequence is $2(3)+1 = 7$. The sequence must contain four `+1's and three `-1's. The formula gives $\frac{1}{7} \binom{7}{3} = \frac{35}{7} = 5$ valid sequences.
-
-% The 5 valid sequences and their partial sums are:
-% \begin{enumerate}
-%     \item \texttt{+ + + + - - -} \\
-%     Sums: 1, 2, 3, 4, 3, 2, 1   
+\begin{minipage}{0.6\textwidth}
     
-%     \item \texttt{+ + + - + - -} \\
-%     Sums: 1, 2, 3, 2, 3, 2, 1   
-    
-%     \item \texttt{+ + + - - + -} \\
-%     Sums: 1, 2, 3, 2, 1, 2, 1   
-    
-%     \item \texttt{+ + - + + - -} \\
-%     Sums: 1, 2, 1, 2, 3, 2, 1   
-    
-%     \item \texttt{+ + - + - + -} \\
-%     Sums: 1, 2, 1, 2, 1, 2, 1 
-% \end{enumerate}
+    \begin{itemize}[noitemsep, topsep=5pt]
+        \item Center: 1 hexagon
+        \item $1^{\text{st}}$ Ring: 6 hexagons
+        \item $2^{\text{nd}}$ Ring: 12 hexagons
+        \item $3^{\text{rd}}$ Ring: 18 hexagons
+    \end{itemize}
+\end{minipage}%
+\hfill 
+\begin{minipage}{0.35\textwidth}
+    \centering
+    % Replace 'hexagon.png' with your file
+    \includegraphics[width=\linewidth]{hexagonal_diagram.png} 
+    \captionof{figure}{Hive Arrangement}
+\end{minipage}
 
-% \newpage
+\noindent \textbf{Setup:} You are given \textbf{60 bees} to build as many complete hives as possible based on the following rules:
 
-% \section*{Part (B) — The main problem}
+\begin{enumerate}
+    \item \textbf{Direct Placement:} You may place a bee directly into a cell to fill it (consumes 1 bee).
+    \item \textbf{Automatic Filling:} Any empty cell with \textbf{3 or more filled neighbors} fills automatically (consumes 0 bees).
+    \item Automatic filling can trigger chain reactions.
+\end{enumerate}
 
-% The integers
-% \[ 1, 2, 3, \dots, 3k+1 \]
-% are written down in a random order (each permutation being equally likely). 
-% What is the probability that at no time during this process is the sum of the numbers written so far a positive integer divisible by 3?
-
-% (The answer is required in closed form — factorials are permitted.)
-
-% \paragraph{Remark to the solver:} Part (A) counts the admissible patterns of residues 1 and 2 (viewed as +1 and -1) after you remove the multiples of 3. Once you have that count, place the $k$ zeros (multiples of 3) among the safe slots and multiply by the internal permutations of numbers with the same residue to finish Part (B).
-
-
-% Let a linear Diophantine equation be given by
-% \[
-% a_1x_1 + a_2x_2 + \dots + a_kx_k = n
-% \]
-% where the variables and coefficients are defined as:
-% \begin{align*}
-%     k, n &\in \mathbb{N} \quad \text{(natural numbers)} \\
-%     x_i &\in \mathbb{N}_0 \quad \text{(non-negative integers)} \\
-%     a_i &\in \mathbb{N} \quad \text{(natural numbers)}
-% \end{align*}
-
-% \begin{enumerate}
-%     \item[a)] Find the total number of non-negative solutions $(x_1, x_2, \dots, x_k)$ for\\ $k \in \{1, 2, \dots, 2025\}$ and $n=2025$, given that $a_i = 1$ for all $i$.
-
-%     \item[b)] Find the number of non-negative integers $n \le 2026$ such that the equation has an even number of non-negative solutions, given $k=4$ and coefficients $a_1=1, a_2=2, a_3=3, a_4=5$.
-% \end{enumerate}
+\noindent \textbf{Questions:}
+\begin{enumerate}
+    \item What is the \textbf{minimum} number of bees required to fill one complete hive of 37 hexagons?
+    \item Using this optimal strategy, what is the \textbf{maximum} number of complete hives that can be built using 60 bees?
+\end{enumerate}
 
 
-% Let a linear diophantine equation be
-% \[a_1x_1+a_2x_2+\ldots+a_kx_k=n\]
-% where $k,n  \in \N,
-% 			 x_i  \in \N,
-% 			 a_i  \in \N$
 
-% a) Find the total number of non-negative solutions $(x_1,x_2,\ldots,x_k)$ for $k \in [1,2025]$ and $n=2025$ $ \forall a_i=1$\\
-% b) Find the number of non-negative integers $n<=2026$ such that the equation has even number of non-negative solutions for $k=4$ and $a_1=1; a_2=2; a_3=3; a_4=5$.
-
-
-% In a convex quadrilateral ABCD :\\
-
-% \vspace*{-5mm}
-% \begin{multicols}{2}
-
-% \begin{tikzpicture}[scale=1.33]
-
-
-% \tkzDefPoints{0/0/D,0/0/E,0/0/P2,0/0/O,0/0/A}
-% \tkzDefPoint(0,0){B}
-% \tkzDefPoint(3,0){C}
-
-% % Define B by rotating D around C by 100 degrees.
-% \tkzDefPointBy[rotation=center C angle -100](B) \tkzGetPoint{D}
-
-% % STEP 2: Find the location of point A using a compatible method.
-% % We define the two lines whose intersection is A.
-
-% % --- Define Line 1 (passing through C at a 25-degree angle to CD) ---
-% % We create a helper point 'P1' by rotating D around C. This is a reliable method.
-% \tkzDefPointBy[rotation=center C angle 25](D)  \tkzGetPoint{P1}
-
-% % --- Define Line 2 (passing through B at the correct angle) ---
-% % The absolute angle of the line segment BA should be 210 degrees.
-% % We create a helper point 'P2' on this line in a robust two-step way:
-% % 1. Define a point 'P_helper' at a 210-degree angle from the origin.
-% % 2. Create P2 by moving 'P_helper' by the same vector that goes from C to B.
-% \tkzDefPointBy[rotation=center B angle 30](D)
-% \tkzGetPoint{P2}
-
-% % --- Find A ---
-% % A is the intersection of the line (C, P1) and the line (B, P2).
-% \tkzInterLL(C,P1)(B,P2)
-% \tkzGetPoint{A}
-
-% % STEP 3: Draw the quadrilateral and its diagonals.
-% \tkzDrawPolygon[thick, fill=gray!10](A,B,C,D)
-% \tkzDrawSegment(A,C)
-% \tkzDrawSegment(B,D)
-
-% % STEP 4: Label the vertices.
-% \tkzLabelPoint[above](A){\large{A}}
-% \tkzLabelPoint[below](B){\large B}
-% \tkzLabelPoint[below right](C){\large C}
-% \tkzLabelPoint[right](D){\large D}
-
-% % STEP 5: Mark the given angles and equal sides.
-% \tkzMarkAngle[size=0.8, fill=blue!20,](D,B,A)
-% \tkzLabelAngle[pos=-1.3](A,B,D){$30^\circ$}
-% \tkzMarkAngle[size=0.8, fill=green!20](A,C,B)
-% \tkzLabelAngle[pos=-1.15](B,C,A){$75^\circ$}
-% \tkzMarkAngle[size=0.6, fill=red!20](D,C,A)
-% \tkzLabelAngle[pos=-1.3](A,C,D){$25^\circ$}
-% \tkzMarkSegment[mark=||, size=3pt](C,B)
-% \tkzMarkSegment[mark=||, size=3pt](C,D)
-
-% % STEP 6: Draw the circumcircle of triangle DAC.
-% \tkzDefCircle[circum](D,A,C)
-% \tkzGetPoint{O}
-% \tkzDrawCircle[color=orange, thick](O,A)
-
-% % % STEP 7: Extend line CB to find E on the circle.
-% \tkzInterLC(C,B)(O,A) \tkzGetPoints{E}{C_on}
-% \tkzDrawLine[color=gray, dashed](B,E)
-% \tkzDrawPoint[color=red, size=5pt, fill=red](E)
-% \tkzLabelPoint[above right, color=red](E){\large E}
-
-% % % STEP 8: Highlight the segments BD and CE for the proof.
-% \tkzDrawSegment[color=purple, ultra thick, opacity=0.8](B,D)
-% \tkzDrawSegment[color=teal, ultra thick, opacity=0.8](C,E)
-
-% \end{tikzpicture}
-
-% the figure satisfies:
-% \begin{eqnarray}
-% 	\angle ABD &=& 30^\circ \nonumber\\
-% \angle BCA &=& 75^\circ \nonumber\\
-% \angle ACD &=& 25^\circ \nonumber\\
-% \overline{CB} &=& \overline{CD} \nonumber
-% \end{eqnarray}
-
-% Extend the line $\overline{CB}$ beyond $B$ to meet the circumcircle of triangle ${DAC}$ again at $E$
-% (so $E$ is the second intersection of line $\overline{CB}$ with the circumcircle of $\triangle DAC$).\\
-% \begin{center}
-% \textbf{Prove that: } $\overline{CE} = \overline{BD}$
-	
-% \end{center}
-% \end{multicols}
-
-% \textbf{Tiny Hint:}
-% \textit{Place a point $F$ on $\overline{AB}$ (or its extension) such that $\overline{CF} = \overline{CB}$.
-% Show that this creates a $60^{\circ}$ angle at $C$, then relate $\overline{CE}$ and $\overline{BD}$ using the circle.
-% }
-
-
-% Consider a $4 \times 4$ matrix whose entries are the integers 1 through 16 written in order left to right, top to bottom.
-% Choose any set of four entries with the rule that exactly one chosen entry lies in each row and exactly one chosen entry lies in each column (equivalently: pick one entry from every row and the chosen column indices are all distinct).
-% Prove that the sum of the four chosen entries is always 34. Henceforth, generalize the result for an $N \times N$ matrix.
-% \\
-
-% Clarification for students: “\textit{Exactly one chosen entry in each row and each column}” means no two chosen numbers share the same row or the same column. Such a choice is called a \textbf{transversal} (or a permutation selection) of the matrix.
-% \\
-
-% Short illustrative examples: For the $4 \times 4$ matrix,\\
-% \[\begin{bmatrix}
-% 1 & 2 & 3 & 4 \\
-% 5 & 6 & 7 & 8 \\
-% 9 & 10 & 11 & 12 \\
-% 13 & 14 & 15 & 16
-% \end{bmatrix}\] \\
-
-% Main diagonal selection:  $1 + 6 + 11 + 16 = 34$.\\
-% Another transversal: Choose entries at positions $(1, 4), (2, 1), (3, 2) and (4, 3)$, giving  $4 + 5 + 10 + 15 = 34$.\\
-% These different choices give the same total — you must prove why this always happens.
 \end{exer*}
 
-% \vfill
-% \vfill
-% \begin{figure}[H]
-% \centering
-%     \includegraphics[width=0.3\textwidth]{./solution-qr-code.png}
-%     \captionsetup{labelformat = empty}
-%     \caption{\Large{(Scan this to submit solution!)}}
-% \end{figure}
 
 
 \bigskip
-\vspace{1.6cm}
-
-
 \begin{multicols}{2}
-		\begin{center}
-		\includegraphics[width=4.28cm, height=4.2cm]{solution-qr-code.png}	\\
-		\noindent (Scan this to submit solution!) \\
-			
-		\end{center}
-\columnbreak
-\Large
-\textbf{\color{red}{{Top Submissions for last Week's Problem: }		}}
-		
-% \begin{enumerate}
-% 	\item \textbf{Hamza Nazim Siddiqui}\\AD24B1023
-% 	% \item \textbf{Lanka Sree Lalith Karthik}\\CS23B1042
-% \end{enumerate}
+                \begin{center}
+                \includegraphics[width=4.28cm, height=4.2cm]{solution-qr-code.png}        \\
+                \noindent (Scan this to submit solution!) \\
+
+                \end{center}
+                \columnbreak
+                \Large
+                \textbf{\color{red}{{Top Submissions for last Week's\\ Problem (WP2602): }           }}
+                \begin{enumerate}
+                        \item \textbf{Aditya Chauhan} - CS25B1004
+                        \item \textbf{Ashutosh Kumar} - AD23B1007
+                \end{enumerate}
 \end{multicols}
 
-\pagenumbering{gobble}
 
 
