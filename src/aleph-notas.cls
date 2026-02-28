@@ -42,7 +42,7 @@
     % Changed the dimensions of compacto to match that of A4 paper for easier transition to A4 size
 \DeclareOption{compacto}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,
-    inner=1.7cm,outer=1.7cm,top=2cm,bottom=1cm,
+    inner=1.7cm,outer=1.7cm,top=2cm,bottom=0cm,
     headsep=5mm}{geometry}}
 \DeclareOption{a4}{
     \PassOptionsToPackage{paperwidth=210mm,paperheight=297mm,twoside,

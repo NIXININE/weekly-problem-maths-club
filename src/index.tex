@@ -12,41 +12,294 @@
 \large
 \begin{exer*}
 
-\noindent A rare species of honeybee builds hives made of hexagonal cells. A complete hive consists of \textbf{37 hexagonal cells} arranged in concentric rings:
+% \begin{center}
+    % \Large \textbf{Moser's Circle Problem} \\[0.2cm]
+    % \large \textit{(Maximum number of regions formed by chords joining points on a circle)}
+% \end{center}
 
-\begin{minipage}{0.35\textwidth}
+\vspace{0.5cm}
+
+% Problem description
+\noindent Given $m$ points on a circle, join every pair with a chord such that no three chords intersect at a single interior point.
+
+\vspace{0.5cm}
+
+% Questions list
+\begin{enumerate}[label=\textbf{Question \arabic*.}, leftmargin=*]
+    \item If $m$ points are placed on a circle and every pair of points is joined by a chord, how many chords are drawn?
     
-    \begin{itemize}[noitemsep, topsep=5pt]
-        \item Center: 1 hexagon
-        \item $1^{\text{st}}$ Ring: 6 hexagons
-        \item $2^{\text{nd}}$ Ring: 12 hexagons
-        \item $3^{\text{rd}}$ Ring: 18 hexagons
-    \end{itemize}
-\end{minipage}%
-\hfill 
-\begin{minipage}{0.6\textwidth}
-    \vspace{4mm}
-    \centering
-    % Replace 'hexagon.png' with your file
-    \includegraphics[width=0.5\linewidth]{hexagonal_diagram.png} 
-    \captionof{figure}{Hive Arrangement}
-    \vspace{4mm}
-\end{minipage}
-
-\noindent \textbf{Setup:} You are given \textbf{60 bees} to build as many complete hives as possible based on the following rules:
-
-\begin{enumerate}
-    \item \textbf{Direct Placement:} You may place a bee directly into a cell to fill it (consumes 1 bee).
-    \item \textbf{Automatic Filling:} Any empty cell with \textbf{3 or more filled neighbors} fills automatically (consumes 0 bees).
-    \item Automatic filling can trigger chain reactions.
+    \item How many intersection points are formed inside the circle when no three chords are concurrent?
+    
+    \item Using the results from the above parts, obtain a formula for the maximum number of regions formed inside the circle.
 \end{enumerate}
 
-\noindent \textbf{Questions:}
-\begin{enumerate}
-    \item What is the \textbf{minimum} number of bees required to fill one complete hive of 37 hexagons?
-    \item Using this optimal strategy, what is the \textbf{maximum} number of complete hives that can be built using 60 bees?
-\end{enumerate}
 
+\begin{center}
+\begin{tikzpicture}[
+    point/.style={circle, fill=black, inner sep=2pt},
+    every path/.style={line join=round}
+]
+
+% Radius for all circles
+\def\R{1.5}
+
+% Macro to calculate intersections of chords A-C and B-D 
+% (For 4 points A, B, C, D in counter-clockwise order)
+\newcommand{\defX}[4]{
+    \coordinate (X#1#2#3#4) at (intersection of P#1--P#3 and P#2--P#4);
+}
+
+% Macro to draw the black overlay (circle, chords, points, and caption)
+\newcommand{\drawoverlay}[3]{
+    \draw[thick] (0,0) circle (\R);
+    \ifnum#1>1
+        % Evaluate loop boundaries as strict integers to avoid (P2.0) decimal errors
+        \pgfmathtruncatemacro{\imax}{#1-1}
+        \foreach \i in {1,...,\imax}{
+            \pgfmathtruncatemacro{\jmin}{\i+1}
+            \foreach \j in {\jmin,...,#1}{
+                \draw (P\i) -- (P\j);
+            }
+        }
+    \fi
+    \foreach \i in {1,...,#1}{
+        \node[point] at (P\i) {};
+    }
+    \node[below, font=\Large] at (0, -\R - 0.5) {$n=#1, c=#2, r_G=#3$};
+}
+
+% ========================================================
+% n = 1
+% ========================================================
+\begin{scope}[shift={(0,0)}]
+    \coordinate (P1) at (180:\R);
+    
+    \drawoverlay{1}{0}{1}
+\end{scope}
+
+% ========================================================
+% n = 2
+% ========================================================
+\begin{scope}[shift={(6,0)}]
+    \coordinate (P1) at (180:\R);
+    \coordinate (P2) at (310:\R);
+    
+    % Fills
+    \fill[pink!50] (P1) arc(180:310:\R) -- cycle;
+    
+    \drawoverlay{2}{1}{2}
+\end{scope}
+
+% ========================================================
+% n = 3
+% ========================================================
+\begin{scope}[shift={(12,0)}]
+    \coordinate (P1) at (60:\R);
+    \coordinate (P2) at (180:\R);
+    \coordinate (P3) at (310:\R);
+    
+    % Fills
+    \fill[purple!40] (P1) arc(60:180:\R) -- cycle;
+    \fill[pink!40] (P2) arc(180:310:\R) -- cycle;
+    \fill[green!40] (P3) arc(310:420:\R) -- cycle;
+    
+    \drawoverlay{3}{3}{4}
+\end{scope}
+
+% ========================================================
+% n = 4
+% ========================================================
+\begin{scope}[shift={(0,-4.5)}]
+    \coordinate (P1) at (60:\R);
+    \coordinate (P2) at (120:\R);
+    \coordinate (P3) at (180:\R);
+    \coordinate (P4) at (310:\R);
+    
+    \defX{1}{2}{3}{4}
+    
+    % Arcs
+    \fill[cyan!40] (P1) arc(60:120:\R) -- cycle;
+    \fill[purple!40] (P2) arc(120:180:\R) -- cycle;
+    \fill[pink!40] (P3) arc(180:310:\R) -- cycle;
+    \fill[green!40] (P4) arc(310:420:\R) -- cycle;
+    
+    % Triangles
+    \fill[gray!30] (P1) -- (P2) -- (X1234) -- cycle;
+    \fill[blue!20] (P2) -- (P3) -- (X1234) -- cycle;
+    \fill[yellow!30] (P3) -- (P4) -- (X1234) -- cycle;
+    \fill[lime!30] (P4) -- (P1) -- (X1234) -- cycle;
+    
+    \drawoverlay{4}{6}{8}
+\end{scope}
+
+% ========================================================
+% n = 5
+% ========================================================
+\begin{scope}[shift={(6,-4.5)}]
+    \coordinate (P1) at (60:\R);
+    \coordinate (P2) at (120:\R);
+    \coordinate (P3) at (180:\R);
+    \coordinate (P4) at (230:\R);
+    \coordinate (P5) at (310:\R);
+    
+    % 5 Inner Intersections
+    \defX{1}{2}{3}{4} \defX{1}{2}{3}{5} \defX{1}{2}{4}{5} 
+    \defX{1}{3}{4}{5} \defX{2}{3}{4}{5}
+    
+    % Arcs
+    \fill[purple!40] (P1) arc(60:120:\R) -- cycle;
+    \fill[violet!40] (P2) arc(120:180:\R) -- cycle;
+    \fill[magenta!40] (P3) arc(180:230:\R) -- cycle;
+    \fill[orange!40] (P4) arc(230:310:\R) -- cycle;
+    \fill[cyan!40] (P5) arc(310:420:\R) -- cycle;
+    
+    % Outer Triangles
+    \fill[blue!30] (P1) -- (P2) -- (X1235) -- cycle;
+    \fill[cyan!30] (P2) -- (P3) -- (X1234) -- cycle;
+    \fill[pink!30] (P3) -- (P4) -- (X2345) -- cycle;
+    \fill[yellow!40] (P4) -- (P5) -- (X1345) -- cycle;
+    \fill[gray!30] (P5) -- (P1) -- (X1245) -- cycle;
+    
+    % Inner Triangles
+    \fill[lime!30] (P1) -- (X1235) -- (X1245) -- cycle;
+    \fill[yellow!20] (P2) -- (X1234) -- (X1235) -- cycle;
+    \fill[teal!30] (P3) -- (X2345) -- (X1234) -- cycle;
+    \fill[purple!20] (P4) -- (X1345) -- (X2345) -- cycle;
+    \fill[red!20] (P5) -- (X1245) -- (X1345) -- cycle;
+    
+    % Central Pentagon
+    \fill[white!90!gray] (X1234) -- (X2345) -- (X1345) -- (X1245) -- (X1235) -- cycle;
+
+    \drawoverlay{5}{10}{16}
+\end{scope}
+
+% ========================================================
+% n = 6
+% ========================================================
+\begin{scope}[shift={(12,-4.5)}]
+    \coordinate (P1) at (00:\R);
+    \coordinate (P2) at (60:\R);
+    \coordinate (P3) at (120:\R);
+    \coordinate (P4) at (180:\R);
+    \coordinate (P5) at (230:\R);
+    \coordinate (P6) at (310:\R);
+    
+    % 15 Inner Intersections
+    \defX{1}{2}{3}{4} \defX{1}{2}{3}{5} \defX{1}{2}{3}{6} \defX{1}{2}{4}{5} \defX{1}{2}{4}{6}
+    \defX{1}{2}{5}{6} \defX{1}{3}{4}{5} \defX{1}{3}{4}{6} \defX{1}{3}{5}{6} \defX{1}{4}{5}{6}
+    \defX{2}{3}{4}{5} \defX{2}{3}{4}{6} \defX{2}{3}{5}{6} \defX{2}{4}{5}{6} \defX{3}{4}{5}{6}
+
+    % Arcs
+    \fill[cyan!40] (P1) arc(0:60:\R) -- cycle;
+    \fill[blue!40] (P2) arc(60:120:\R) -- cycle;
+    \fill[purple!40] (P3) arc(120:180:\R) -- cycle;
+    \fill[magenta!40] (P4) arc(180:230:\R) -- cycle;
+    \fill[orange!40] (P5) arc(230:310:\R) -- cycle;
+    \fill[lime!40] (P6) arc(310:360:\R) -- cycle;
+    
+    % Outer border Triangles
+    \fill[teal!30] (P1) -- (P2) -- (X1236) -- cycle;
+    \fill[gray!30] (P2) -- (P3) -- (X1234) -- cycle;
+    \fill[pink!30] (P3) -- (P4) -- (X2345) -- cycle;
+    \fill[yellow!40] (P4) -- (P5) -- (X3456) -- cycle;
+    \fill[red!30] (P5) -- (P6) -- (X1456) -- cycle;
+    \fill[green!30] (P6) -- (P1) -- (X1256) -- cycle;
+    
+    % 12 Inner Triangles near edges
+    \fill[purple!20] (P1) -- (X1236) -- (X1246) -- cycle;
+    \fill[orange!20] (P1) -- (X1246) -- (X1256) -- cycle;
+    \fill[magenta!20] (P2) -- (X1234) -- (X1235) -- cycle;
+    \fill[cyan!20] (P2) -- (X1235) -- (X1236) -- cycle;
+    \fill[lime!20] (P3) -- (X2345) -- (X2346) -- cycle;
+    \fill[blue!20] (P3) -- (X2346) -- (X1234) -- cycle;
+    \fill[red!20] (P4) -- (X3456) -- (X1345) -- cycle;
+    \fill[teal!20] (P4) -- (X1345) -- (X2345) -- cycle;
+    \fill[yellow!20] (P5) -- (X1456) -- (X2456) -- cycle;
+    \fill[pink!20] (P5) -- (X2456) -- (X3456) -- cycle;
+    \fill[green!20] (P6) -- (X1256) -- (X1356) -- cycle;
+    \fill[gray!20] (P6) -- (X1356) -- (X1456) -- cycle;
+    
+    % 3 Quadrilaterals
+    \fill[lime!50] (X1246) -- (X1245) -- (X1235) -- (X1236) -- cycle;
+    \fill[magenta!40] (X2346) -- (X1346) -- (X1345) -- (X2345) -- cycle;
+    \fill[teal!40] (X2456) -- (X2356) -- (X1356) -- (X1456) -- cycle;
+
+    % 3 Pentagons
+    \fill[cyan!30] (X1235) -- (X1245) -- (X1346) -- (X2346) -- (X1234) -- cycle;
+    \fill[orange!30] (X1346) -- (X2356) -- (X2456) -- (X3456) -- (X1345) -- cycle;
+    \fill[purple!30] (X2356) -- (X1245) -- (X1246) -- (X1256) -- (X1356) -- cycle;
+
+    % 1 Central Triangle
+    \fill[white!30!gray] (X1245) -- (X1346) -- (X2356) -- cycle;
+    
+    \drawoverlay{6}{15}{31}
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+
+% \begin{center}
+% \begin{tikzpicture}[
+%     point/.style={circle, fill=black, inner sep=2pt}
+% ]
+
+% % Define the radius of the circles
+% \def\radius{1.2}
+
+% % Macro to fetch specific angles that prevent central triple intersections (mimicking the image)
+% \newcommand{\getangle}[2]{%
+%     \ifcase#1\or \def#2{180}\or \def#2{310}\or \def#2{60}\or \def#2{120}\or \def#2{230}\or \def#2{10}\fi%
+% }
+
+% % Macro to draw a complete Moser circle
+% % #1: x position
+% % #2: y position
+% % #3: number of points (n)
+% % #4: caption text
+% \newcommand{\drawmoser}[4]{
+%     \begin{scope}[shift={(#1,#2)}]
+%         % Draw the circle
+%         \draw[thick] (0,0) circle (\radius);
+        
+%         % Draw all chords between points
+%         \ifnum#3>1
+%             \foreach \i in {1,...,\numexpr#3-1\relax} {
+%                 \foreach \j in {\numexpr\i+1\relax,...,#3} {
+%                     \getangle{\i}{\angleI}
+%                     \getangle{\j}{\angleJ}
+%                     \draw (\angleI:\radius) -- (\angleJ:\radius);
+%                 }
+%             }
+%         \fi
+        
+%         % Draw the points on top of the lines
+%         \foreach \i in {1,...,#3} {
+%             \getangle{\i}{\angleI}
+%             \node[point] at (\angleI:\radius) {};
+%         }
+        
+%         % Add the caption
+%         \node[below, font=\Large\sffamily] at (0, -\radius - 0.5) {#4};
+%     \end{scope}
+% }
+
+% % ==========================================
+% % Horizontal 2x3 Grid Layout
+% % ==========================================
+
+% % First Row
+% \drawmoser{0}{0}{1}{$n=1, c=0, r_G=1$}
+% \drawmoser{6}{0}{2}{$n=2, c=1, r_G=2$}
+% \drawmoser{12}{0}{3}{$n=3, c=3, r_G=4$}
+
+% % Second Row
+% \drawmoser{0}{-4.5}{4}{$n=4, c=6, r_G=8$}
+% \drawmoser{6}{-4.5}{5}{$n=5, c=10, r_G=16$}
+% \drawmoser{12}{-4.5}{6}{$n=6, c=15, r_G=31$}
+
+% \end{tikzpicture}
+% \end{center}
 
 
 \end{exer*}
@@ -56,6 +309,7 @@
 \bigskip
 % \begin{multicols}{2}
                 \begin{center}
+                \vspace{3mm}
                 \includegraphics[width=4.28cm, height=4.2cm]{solution-qr-code.png}        \\
                 \noindent (Scan this to submit solution!) \\
 
