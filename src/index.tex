@@ -10,296 +10,76 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \large
-\begin{exer*}
+\begin{exer*}{\Large{\textbf{\hspace{3.86cm}Zigzag Subsequences}}}
 
-% \begin{center}
-    % \Large \textbf{Moser's Circle Problem} \\[0.2cm]
-    % \large \textit{(Maximum number of regions formed by chords joining points on a circle)}
-% \end{center}
-
-\vspace{0.5cm}
-
-% Problem description
-\noindent Given $m$ points on a circle, join every pair with a chord such that no three chords intersect at a single interior point.
-
-\vspace{0.5cm}
-
-% Questions list
-\begin{enumerate}[label=\textbf{Question \arabic*.}, leftmargin=*]
-    \item If $m$ points are placed on a circle and every pair of points is joined by a chord, how many chords are drawn?
-    
-    \item How many intersection points are formed inside the circle when no three chords are concurrent?
-    
-    \item Using the results from the above parts, obtain a formula for the maximum number of regions formed inside the circle.
-\end{enumerate}
-
-
+\begin{multicols}{2}
+A sequence $y_1, \dots, y_k$ is \textit{zigzag} if $k=1$ or if consecutive differences $y_{i+1} - y_i$ are nonzero and alternate in sign. Let $X_1, \dots, X_n$ be chosen i.i.d. from $[0, 1]$. Let $a(X_1, \dots, X_n)$ be the length of the longest zigzag subsequence, and $f(n)$ be its expected value.
+\columnbreak
 \begin{center}
-\begin{tikzpicture}[
-    point/.style={circle, fill=black, inner sep=2pt},
-    every path/.style={line join=round}
-]
+\begin{tikzpicture}[scale=1, every node/.style={scale=0.8}]
+    % Draw Axes
+    \draw[->] (0,0) -- (5.5,0) node[right] {Index ($i$)};
+    \draw[->] (0,0) -- (0,3.5) node[above] {Value ($X_i$)};
+    \draw[dashed, gray!50] (0,3) -- (5,3) node[right, black] {1.0};
+    \draw[dashed, gray!50] (0,0) node[left, black] {0.0};
 
-% Radius for all circles
-\def\R{1.5}
+    % Define Points (Randomized zigzag-like sequence)
+    \coordinate (P1) at (1, 2.5);
+    \coordinate (P2) at (2, 0.5);
+    \coordinate (P3) at (3, 2.8);
+    \coordinate (P4) at (4, 1.2);
+    \coordinate (P5) at (5, 2.2);
 
-% Macro to calculate intersections of chords A-C and B-D 
-% (For 4 points A, B, C, D in counter-clockwise order)
-\newcommand{\defX}[4]{
-    \coordinate (X#1#2#3#4) at (intersection of P#1--P#3 and P#2--P#4);
-}
+    % Draw the zigzag path
+    \draw[thick, blue] (P1) -- (P2) -- (P3) -- (P4) -- (P5);
 
-% Macro to draw the black overlay (circle, chords, points, and caption)
-\newcommand{\drawoverlay}[3]{
-    \draw[thick] (0,0) circle (\R);
-    \ifnum#1>1
-        % Evaluate loop boundaries as strict integers to avoid (P2.0) decimal errors
-        \pgfmathtruncatemacro{\imax}{#1-1}
-        \foreach \i in {1,...,\imax}{
-            \pgfmathtruncatemacro{\jmin}{\i+1}
-            \foreach \j in {\jmin,...,#1}{
-                \draw (P\i) -- (P\j);
-            }
-        }
-    \fi
-    \foreach \i in {1,...,#1}{
-        \node[point] at (P\i) {};
+    % Draw the points
+    \foreach \i in {1,...,5} {
+        \filldraw[black] (P\i) circle (2pt);
+        % \node[below=5pt] at (\i, 0) {$i=\i$};
     }
-    \node[below, font=\Large] at (0, -\R - 0.5) {$n=#1, c=#2, r_G=#3$};
-}
 
-% ========================================================
-% n = 1
-% ========================================================
-\begin{scope}[shift={(0,0)}]
-    \coordinate (P1) at (180:\R);
-    
-    \drawoverlay{1}{0}{1}
-\end{scope}
+    % Labels for points
+    \node[above right] at (P1) {$X_1$};
+    \node[below left]  at (P2) {$X_2$};
+    \node[above]       at (P3) {$X_3$};
+    \node[below]       at (P4) {$X_4$};
+    \node[above]       at (P5) {$X_5$};
+    % \node[below right] at (P6) {$X_6$};
 
-% ========================================================
-% n = 2
-% ========================================================
-\begin{scope}[shift={(6,0)}]
-    \coordinate (P1) at (180:\R);
-    \coordinate (P2) at (310:\R);
-    
-    % Fills
-    \fill[pink!50] (P1) arc(180:310:\R) -- cycle;
-    
-    \drawoverlay{2}{1}{2}
-\end{scope}
+    % Annotate signs of differences
+    \node[blue, font=\small] at (1.3, 1.3) {$-$};
+    \node[blue, font=\small] at (2.3, 1.8) {$+$};
+    \node[blue, font=\small] at (3.4, 1.8) {$-$};
+    \node[blue, font=\small] at (4.4, 1.9) {$+$};
+    % \node[blue, font=\small] at (5.5, 1.3) {$-$};
 
-% ========================================================
-% n = 3
-% ========================================================
-\begin{scope}[shift={(12,0)}]
-    \coordinate (P1) at (60:\R);
-    \coordinate (P2) at (180:\R);
-    \coordinate (P3) at (310:\R);
-    
-    % Fills
-    \fill[purple!40] (P1) arc(60:180:\R) -- cycle;
-    \fill[pink!40] (P2) arc(180:310:\R) -- cycle;
-    \fill[green!40] (P3) arc(310:420:\R) -- cycle;
-    
-    \drawoverlay{3}{3}{4}
-\end{scope}
-
-% ========================================================
-% n = 4
-% ========================================================
-\begin{scope}[shift={(0,-4.5)}]
-    \coordinate (P1) at (60:\R);
-    \coordinate (P2) at (120:\R);
-    \coordinate (P3) at (180:\R);
-    \coordinate (P4) at (310:\R);
-    
-    \defX{1}{2}{3}{4}
-    
-    % Arcs
-    \fill[cyan!40] (P1) arc(60:120:\R) -- cycle;
-    \fill[purple!40] (P2) arc(120:180:\R) -- cycle;
-    \fill[pink!40] (P3) arc(180:310:\R) -- cycle;
-    \fill[green!40] (P4) arc(310:420:\R) -- cycle;
-    
-    % Triangles
-    \fill[gray!30] (P1) -- (P2) -- (X1234) -- cycle;
-    \fill[blue!20] (P2) -- (P3) -- (X1234) -- cycle;
-    \fill[yellow!30] (P3) -- (P4) -- (X1234) -- cycle;
-    \fill[lime!30] (P4) -- (P1) -- (X1234) -- cycle;
-    
-    \drawoverlay{4}{6}{8}
-\end{scope}
-
-% ========================================================
-% n = 5
-% ========================================================
-\begin{scope}[shift={(6,-4.5)}]
-    \coordinate (P1) at (60:\R);
-    \coordinate (P2) at (120:\R);
-    \coordinate (P3) at (180:\R);
-    \coordinate (P4) at (230:\R);
-    \coordinate (P5) at (310:\R);
-    
-    % 5 Inner Intersections
-    \defX{1}{2}{3}{4} \defX{1}{2}{3}{5} \defX{1}{2}{4}{5} 
-    \defX{1}{3}{4}{5} \defX{2}{3}{4}{5}
-    
-    % Arcs
-    \fill[purple!40] (P1) arc(60:120:\R) -- cycle;
-    \fill[violet!40] (P2) arc(120:180:\R) -- cycle;
-    \fill[magenta!40] (P3) arc(180:230:\R) -- cycle;
-    \fill[orange!40] (P4) arc(230:310:\R) -- cycle;
-    \fill[cyan!40] (P5) arc(310:420:\R) -- cycle;
-    
-    % Outer Triangles
-    \fill[blue!30] (P1) -- (P2) -- (X1235) -- cycle;
-    \fill[cyan!30] (P2) -- (P3) -- (X1234) -- cycle;
-    \fill[pink!30] (P3) -- (P4) -- (X2345) -- cycle;
-    \fill[yellow!40] (P4) -- (P5) -- (X1345) -- cycle;
-    \fill[gray!30] (P5) -- (P1) -- (X1245) -- cycle;
-    
-    % Inner Triangles
-    \fill[lime!30] (P1) -- (X1235) -- (X1245) -- cycle;
-    \fill[yellow!20] (P2) -- (X1234) -- (X1235) -- cycle;
-    \fill[teal!30] (P3) -- (X2345) -- (X1234) -- cycle;
-    \fill[purple!20] (P4) -- (X1345) -- (X2345) -- cycle;
-    \fill[red!20] (P5) -- (X1245) -- (X1345) -- cycle;
-    
-    % Central Pentagon
-    \fill[white!90!gray] (X1234) -- (X2345) -- (X1345) -- (X1245) -- (X1235) -- cycle;
-
-    \drawoverlay{5}{10}{16}
-\end{scope}
-
-% ========================================================
-% n = 6
-% ========================================================
-\begin{scope}[shift={(12,-4.5)}]
-    \coordinate (P1) at (00:\R);
-    \coordinate (P2) at (60:\R);
-    \coordinate (P3) at (120:\R);
-    \coordinate (P4) at (180:\R);
-    \coordinate (P5) at (230:\R);
-    \coordinate (P6) at (310:\R);
-    
-    % 15 Inner Intersections
-    \defX{1}{2}{3}{4} \defX{1}{2}{3}{5} \defX{1}{2}{3}{6} \defX{1}{2}{4}{5} \defX{1}{2}{4}{6}
-    \defX{1}{2}{5}{6} \defX{1}{3}{4}{5} \defX{1}{3}{4}{6} \defX{1}{3}{5}{6} \defX{1}{4}{5}{6}
-    \defX{2}{3}{4}{5} \defX{2}{3}{4}{6} \defX{2}{3}{5}{6} \defX{2}{4}{5}{6} \defX{3}{4}{5}{6}
-
-    % Arcs
-    \fill[cyan!40] (P1) arc(0:60:\R) -- cycle;
-    \fill[blue!40] (P2) arc(60:120:\R) -- cycle;
-    \fill[purple!40] (P3) arc(120:180:\R) -- cycle;
-    \fill[magenta!40] (P4) arc(180:230:\R) -- cycle;
-    \fill[orange!40] (P5) arc(230:310:\R) -- cycle;
-    \fill[lime!40] (P6) arc(310:360:\R) -- cycle;
-    
-    % Outer border Triangles
-    \fill[teal!30] (P1) -- (P2) -- (X1236) -- cycle;
-    \fill[gray!30] (P2) -- (P3) -- (X1234) -- cycle;
-    \fill[pink!30] (P3) -- (P4) -- (X2345) -- cycle;
-    \fill[yellow!40] (P4) -- (P5) -- (X3456) -- cycle;
-    \fill[red!30] (P5) -- (P6) -- (X1456) -- cycle;
-    \fill[green!30] (P6) -- (P1) -- (X1256) -- cycle;
-    
-    % 12 Inner Triangles near edges
-    \fill[purple!20] (P1) -- (X1236) -- (X1246) -- cycle;
-    \fill[orange!20] (P1) -- (X1246) -- (X1256) -- cycle;
-    \fill[magenta!20] (P2) -- (X1234) -- (X1235) -- cycle;
-    \fill[cyan!20] (P2) -- (X1235) -- (X1236) -- cycle;
-    \fill[lime!20] (P3) -- (X2345) -- (X2346) -- cycle;
-    \fill[blue!20] (P3) -- (X2346) -- (X1234) -- cycle;
-    \fill[red!20] (P4) -- (X3456) -- (X1345) -- cycle;
-    \fill[teal!20] (P4) -- (X1345) -- (X2345) -- cycle;
-    \fill[yellow!20] (P5) -- (X1456) -- (X2456) -- cycle;
-    \fill[pink!20] (P5) -- (X2456) -- (X3456) -- cycle;
-    \fill[green!20] (P6) -- (X1256) -- (X1356) -- cycle;
-    \fill[gray!20] (P6) -- (X1356) -- (X1456) -- cycle;
-    
-    % 3 Quadrilaterals
-    \fill[lime!50] (X1246) -- (X1245) -- (X1235) -- (X1236) -- cycle;
-    \fill[magenta!40] (X2346) -- (X1346) -- (X1345) -- (X2345) -- cycle;
-    \fill[teal!40] (X2456) -- (X2356) -- (X1356) -- (X1456) -- cycle;
-
-    % 3 Pentagons
-    \fill[cyan!30] (X1235) -- (X1245) -- (X1346) -- (X2346) -- (X1234) -- cycle;
-    \fill[orange!30] (X1346) -- (X2356) -- (X2456) -- (X3456) -- (X1345) -- cycle;
-    \fill[purple!30] (X2356) -- (X1245) -- (X1246) -- (X1256) -- (X1356) -- cycle;
-
-    % 1 Central Triangle
-    \fill[white!30!gray] (X1245) -- (X1346) -- (X2356) -- cycle;
-    
-    \drawoverlay{6}{15}{31}
-\end{scope}
-
+    % Legend or caption-like note
+    \node[draw, fill=white, font=\footnotesize, align=left] at (3, -1) {
+        Consecutive differences: $(X_2-X_1 < 0), (X_3-X_2 > 0), (X_4-X_3 < 0) \dots$ \\
+        Signs: $(-, +, -, +) \implies$ \textbf{Zigzag Sequence}
+    };
 \end{tikzpicture}
 \end{center}
+\end{multicols}
+\paragraph{Part A} 
+\begin{enumerate}[nosep, leftmargin=*]
+    \item Show any two distinct numbers form a zigzag, hence $f(2) = 2$.
+    \item Verify $f(3) = 8/3$ by averaging $a$ over all $3! = 6$ equally likely orderings of three numbers.
+\end{enumerate}
 
+\paragraph{Part B} For $n \ge 3$, let $\Delta_n = a(X_1, \dots, X_n) - a(X_2, \dots, X_n)$ be the drop in length when $X_1$ is removed.
+\begin{enumerate}[label=(\roman*), nosep, leftmargin=*]
+    \item Show that $\Delta_n$ is always $0$ or $1$.
+    \item Show $\Delta_n = 1$ if and only if the triple $(X_1, X_2, X_3)$ is non-monotone.
+\end{enumerate}
+Conclude from Part A that $\Delta_n = 1$ occurs on average $2/3$ of the time for any $n \ge 3$.
 
-% \begin{center}
-% \begin{tikzpicture}[
-%     point/.style={circle, fill=black, inner sep=2pt}
-% ]
-
-% % Define the radius of the circles
-% \def\radius{1.2}
-
-% % Macro to fetch specific angles that prevent central triple intersections (mimicking the image)
-% \newcommand{\getangle}[2]{%
-%     \ifcase#1\or \def#2{180}\or \def#2{310}\or \def#2{60}\or \def#2{120}\or \def#2{230}\or \def#2{10}\fi%
-% }
-
-% % Macro to draw a complete Moser circle
-% % #1: x position
-% % #2: y position
-% % #3: number of points (n)
-% % #4: caption text
-% \newcommand{\drawmoser}[4]{
-%     \begin{scope}[shift={(#1,#2)}]
-%         % Draw the circle
-%         \draw[thick] (0,0) circle (\radius);
-        
-%         % Draw all chords between points
-%         \ifnum#3>1
-%             \foreach \i in {1,...,\numexpr#3-1\relax} {
-%                 \foreach \j in {\numexpr\i+1\relax,...,#3} {
-%                     \getangle{\i}{\angleI}
-%                     \getangle{\j}{\angleJ}
-%                     \draw (\angleI:\radius) -- (\angleJ:\radius);
-%                 }
-%             }
-%         \fi
-        
-%         % Draw the points on top of the lines
-%         \foreach \i in {1,...,#3} {
-%             \getangle{\i}{\angleI}
-%             \node[point] at (\angleI:\radius) {};
-%         }
-        
-%         % Add the caption
-%         \node[below, font=\Large\sffamily] at (0, -\radius - 0.5) {#4};
-%     \end{scope}
-% }
-
-% % ==========================================
-% % Horizontal 2x3 Grid Layout
-% % ==========================================
-
-% % First Row
-% \drawmoser{0}{0}{1}{$n=1, c=0, r_G=1$}
-% \drawmoser{6}{0}{2}{$n=2, c=1, r_G=2$}
-% \drawmoser{12}{0}{3}{$n=3, c=3, r_G=4$}
-
-% % Second Row
-% \drawmoser{0}{-4.5}{4}{$n=4, c=6, r_G=8$}
-% \drawmoser{6}{-4.5}{5}{$n=5, c=10, r_G=16$}
-% \drawmoser{12}{-4.5}{6}{$n=6, c=15, r_G=31$}
-
-% \end{tikzpicture}
-% \end{center}
+\paragraph{Part C} Derive a formula for $f(n)$ using $f(2)=2$ as a base case.
+\begin{enumerate}[label=(\roman*), nosep, leftmargin=*]
+    \item Explain why $f(n) - f(n-1) = E[\Delta_n]$.
+    \item Determine the final expression for $f(n)$.
+\end{enumerate}
 
 
 \end{exer*}
@@ -307,21 +87,21 @@
 
 
 \bigskip
-% \begin{multicols}{2}
+\begin{multicols}{2}
                 \begin{center}
                 \vspace{3mm}
                 \includegraphics[width=4.28cm, height=4.2cm]{solution-qr-code.png}        \\
                 \noindent (Scan this to submit solution!) \\
 
                 \end{center}
-%                 \columnbreak
-%                 \Large
-%                 \textbf{\color{red}{{Top Submissions for last Week's\\ Problem (WP2602): }           }}
-%                 \begin{enumerate}
-%                         \item \textbf{Aditya Chauhan} - CS25B1004
-%                         \item \textbf{Ashutosh Kumar} - AD23B1007
-%                 \end{enumerate}
-% \end{multicols}
+                \columnbreak
+                \Large
+                \textbf{\color{red}{{Top Submissions for last Week's\\ Problem (WP2605): }           }}
+                \begin{enumerate}
+                        \item \textbf{Aditya Chauhan} - CS25B1004
+                        \item \textbf{Ashutosh Kumar} - AD23B1007
+                \end{enumerate}
+\end{multicols}
 
 
 
